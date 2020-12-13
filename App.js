@@ -6,7 +6,7 @@ import Navigation from './src/navigation';
 const App = () => {
 	return (
 		<View style={{ flex: 1, justifyContent: 'center' }}>
-			<StatusBar barStyle="light-content" />
+			<StatusBar barStyle="dark-content" />
 			<SafeAreaView style={{ flex: 1 }}>
 				<Navigation />
 			</SafeAreaView>
