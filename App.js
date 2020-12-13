@@ -1,15 +1,17 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import React from 'react';
+import { SafeAreaView, StatusBar, View } from 'react-native';
 
-const App = createAppContainer(switchNavigator);
+import Navigation from './src/navigation';
 
-export default () => {
+const App = () => {
 	return (
-		<App
-			ref={(navigator) => {
-				setNavigator(navigator);
-			}}
-		/>
+		<View style={{ flex: 1, justifyContent: 'center' }}>
+			<StatusBar barStyle="light-content" />
+			<SafeAreaView style={{ flex: 1 }}>
+				<Navigation />
+			</SafeAreaView>
+		</View>
 	);
 };
+
+export default App;
