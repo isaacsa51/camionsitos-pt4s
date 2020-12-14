@@ -13,7 +13,7 @@ const HomeNavTabs = () => {
 		<Tab.Navigator
 			tabBarOptions={{
 				tabStyle: {
-					backgroundColor: '#000',
+					backgroundColor: '#2e343d',
 				},
 				activeTintColor: 'white',
 				style: {
