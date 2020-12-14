@@ -20,13 +20,18 @@
       "supportsTablet": true
     },
     "android": {
+      "android": {
+        "permissions": [
+          "ACCESS_COARSE_LOCATION",
+          "ACCESS_FINE_LOCATION"
+        ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyDWhEqPI3G0KTbalu7_3pK7ac4qBsqrAZc"
+          "apiKey": "AIzaSyB24UVy1ocICnO7Zsc9NuY04Mn5IBY8Jq0"
         }
       }
     },
