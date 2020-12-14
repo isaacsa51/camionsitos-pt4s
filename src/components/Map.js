@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet, Text } from 'react-native'
 import MapView from 'react-native-maps'
 import MapViewDirections from "react-native-maps-directions";
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 const height = Dimensions.get('window').height
 const origin = {latitude: 23.252138, longitude: -106.408132};
@@ -348,7 +349,6 @@ const points = [
           { longitude: -106.434, latitude: 23.26181 },
           { longitude: -106.43437, latitude: 23.26151 }
   ];
-  
 
 const Map = () => {
     return (
@@ -367,7 +367,7 @@ const Map = () => {
 
         <MapView.Polyline
         coordinates = {points}
-        strokeWidth = {5}
+        strokeWidth = {2}
         strokeColor = "#E7173F"
         lineCap = "round"
         />
@@ -378,8 +378,56 @@ const Map = () => {
         strokeColor = "#E7173F"
         lineCap = "round"
         />
-        </MapView>
-        
+        <GooglePlacesAutocomplete
+        placeholder='¿A donde quieres ir?'
+        minLength={2}
+        autoFocus={false}
+        returnKeyType={'search'}
+        disableScroll ={true}
+        listViewDisplayed='auto'    // true/false/undefined
+        renderDescription={row => row.description}
+        onPress={(data, details = null) => {
+        // 'details' is provided when fetchDetails = true
+        console.log(data, details);
+        }}
+        onFail={error => console.error(error)}
+        query={{
+          key: GOOGLE_MAPS_APIKEY,
+          language: 'es',
+          components: 'country:mx',
+          origin: "23.2519726,-106.4079802",
+          location: "23.2519726,-106.4079802",
+          radius: 10000
+        }}
+        styles={{
+            poweredContainer: {
+                justifyContent: 'flex-end',
+                alignItems: 'center',
+                borderBottomRightRadius: 5,
+                borderBottomLeftRadius: 5,
+                borderColor: '#c8c7cc',
+                borderTopWidth: 0.5,
+            },
+            textInputContainer: {
+              backgroundColor: 'rgba(0,0,0,0)',
+              borderTopWidth: 0,
+              borderBottomWidth:0
+            },
+            textInput: {
+              marginLeft: 0,
+              marginRight: 0,
+              height: 38,
+              color: '#5d5d5d',
+              fontSize: 16
+            },
+            predefinedPlacesDescription: {
+              color: '#1faadb'
+            },
+          }}
+        currentLocation={true}
+        currentLocationLabel='Ubicación Actual'
+      />
+        </MapView>  
     )
 }
 
