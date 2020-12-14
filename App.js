@@ -1,27 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation'
-import { createBottomTabNavigator } from 'react-navigation-tabs'
-import MapScreen from './src/screens/MapScreen'
-import MapListScreen from './src/screens/MapListScreen'
-import { setNavigator } from './src/NavigationRef'
+import { SafeAreaView, StatusBar, View } from 'react-native';
 
-const switchNavigator = createSwitchNavigator({
-  mainFlow: createBottomTabNavigator({
-    MapView: MapScreen,
-    MapList: MapListScreen
-  })
-})
+import Navigation from './src/navigation';
 
-const App = createAppContainer(switchNavigator)
+const App = () => {
+	return (
+		<View style={{ flex: 1, justifyContent: 'center' }}>
+			<StatusBar barStyle="dark-content" />
+			<SafeAreaView style={{ flex: 1 }}>
+				<Navigation />
+			</SafeAreaView>
+		</View>
+	);
+};
 
-export default () => {
-  return (
-    <App
-      ref={navigator => {
-        setNavigator(navigator)
-      }}
-      />
-  );
-}
+export default App;
