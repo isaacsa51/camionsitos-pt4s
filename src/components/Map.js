@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, Text } from 'react-native'
+import { Dimensions, StyleSheet, View, Image } from 'react-native'
 import MapView from 'react-native-maps'
 
+const GOOGLE_MAPS_APIKEY = 'AIzaSyB24UVy1ocICnO7Zsc9NuY04Mn5IBY8Jq0';
+const HERE_API_KEY = '3FubSE_nFnO32qhU1PzWbjQQahxV9i7fLhUnThbg_3k'
+const width = Dimensions.get('window').width
 const height = Dimensions.get('window').height
 const ruta_dorados = [
     { longitude: -106.41979, latitude: 23.20282 },
@@ -334,33 +337,7 @@ const ruta_dorados = [
           { longitude: -106.434, latitude: 23.26181 },
           { longitude: -106.43437, latitude: 23.26151 }
   ];
-
-const Map = () => {
-    return (
-        <MapView
-        provider={MapView.PROVIDER_GOOGLE}
-        style = {styles.map}
-        loadingEnabled = {true}
-        showsUserLocation = {true}
-        region = {{
-            latitude: 23.2519726,
-            longitude: -106.4079802,
-            latitudeDelta: 0.0,
-            longitudeDelta: 0.012
-        }}
-        >
-            <MapView.Polyline
-            coordinates = {ruta_dorados}
-            strokeWidth = {2}
-            strokeColor = "#E7173F"
-            lineCap = "round"
-            />
-            
-        </MapView>
-    )
-}
-
-const styles = StyleSheet.create({
+  const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
@@ -371,4 +348,113 @@ const styles = StyleSheet.create({
         height
     }
 })
-export default Map
+export default class Map extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            initialRegion: {
+                latitude: 23.2519726,
+                longitude: -106.4079802,
+                latitudeDelta: 0.0,
+                longitudeDelta: 0.012
+            },
+            marginBottom: 1,
+            currentAddress: ''
+        }
+    }
+    state = { hackHeight: height }
+    componentDidMount(){
+        this.handleUserLocation();
+        setTimeout(()=>this.setState({marginBottom : 0}),100)
+        setTimeout( () => this.setState({ hackHeight: height+1}), 500);
+        setTimeout( () => this.setState({ hackHeight: height}), 1000);
+    }
+
+    handleUserLocation =() =>{
+        navigator.geolocation.getCurrentPosition(pos => {
+            //alert(JSON.stringify(pos))
+            this.map.animateToRegion({
+                ...this.state.initialRegion,
+                latitude: pos.coords.latitude,
+                longitude: pos.coords.longitude
+            })
+            this.setState({
+                initialRegion: {
+                ...this.state.initialRegion,
+                latitude: pos.coords.latitude,
+                longitude: pos.coords.longitude
+                }
+            })
+            },
+            err => {
+            console.log(err);
+            alert('Something went wrong! please select location manually')
+        })
+    }
+
+    getAddressFromCoordinates({ latitude, longitude }) {
+        return new Promise((resolve) => {
+          const url = `https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json?apiKey=${HERE_API_KEY}&mode=retrieveAddresses&prox=${latitude},${longitude}`
+          fetch(url)
+            .then(res => res.json())
+            .then((resJson) => {
+              // the response had a deeply nested structure :/
+              if (resJson
+                && resJson.Response
+                && resJson.Response.View
+                && resJson.Response.View[0]
+                && resJson.Response.View[0].Result
+                && resJson.Response.View[0].Result[0]) {
+                resolve(resJson.Response.View[0].Result[0].Location.Address.Label)
+              } else {
+                resolve()
+              }
+            })
+            .catch((e) => {
+              console.log('Error in getAddressFromCoordinates', e)
+              resolve()
+            })
+        })
+      }
+    onChangeValue = initialRegion =>{
+        this.setState({
+            initialRegion
+        })
+        const coords = {latitude:initialRegion.latitude, longitude:initialRegion.longitude};
+        const promise1 = this.getAddressFromCoordinates(coords)
+        promise1.then((value) => {
+            alert(value);
+          });
+        
+    }
+
+    render(){
+        return(
+            <View style= {{ paddingBottom: this.state.hackHeight }}>
+                <MapView
+                provider={MapView.PROVIDER_GOOGLE}
+                style = {{flex: 1, marginBottom: this.state.marginBottom}, styles.map}
+                showsUserLocation = {true}
+                showsMyLocationButton = {true}
+                initialRegion = {this.state.initialRegion}
+                onRegionChangeComplete = {this.onChangeValue}
+                ref = {ref =>this.map = ref}
+            >
+                <MapView.Polyline
+                coordinates = {ruta_dorados}
+                strokeWidth = {2}
+                strokeColor = "#E7173F"
+                lineCap = "round"
+                />
+                
+                
+            </MapView>
+            <View style={{top:'50%', left: '50%', marginLeft: -24, marginTop: -48, position:'absolute'}}>
+                <Image style={{height: 48, width: 48}} source={require('../img/pin.png')}/>
+            </View>
+        </View>
+        )
+    }
+    
+
+}
