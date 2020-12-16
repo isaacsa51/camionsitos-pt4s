@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Dimensions, StyleSheet, View, Image } from 'react-native'
 import MapView from 'react-native-maps'
 
-const GOOGLE_MAPS_APIKEY = 'AIzaSyB24UVy1ocICnO7Zsc9NuY04Mn5IBY8Jq0';
 const HERE_API_KEY = '3FubSE_nFnO32qhU1PzWbjQQahxV9i7fLhUnThbg_3k'
 const width = Dimensions.get('window').width
 const height = Dimensions.get('window').height
