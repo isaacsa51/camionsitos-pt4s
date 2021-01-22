@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Dimensions, StyleSheet, View, Image,TextInput } from 'react-native'
+import { Feather } from 'react-native-vector-icons';
 import MapView from 'react-native-maps'
 
 const HERE_API_KEY = '3FubSE_nFnO32qhU1PzWbjQQahxV9i7fLhUnThbg_3k'
 const height2 = Dimensions.get('window').height2
 const height = (Dimensions.get('window').height/3)*2
 const height1 = (Dimensions.get('window').height1/3)
-let textvalue = ''
+var textvalue;
   const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -102,13 +103,16 @@ export default class Map extends Component{
         valor = result
         textvalue = valor
         console.log(textvalue)
+        this.setState({
+            TextHolder: textvalue
+        })
     }
 
 
     render(){
         return(
             <View>
-                <View style= {{ paddingBottom: this.state.hackHeight, backgroundColor: '#2e343d' }}>
+                <View style= {{ backgroundColor: '#2e343d' }}>
                     <MapView
                     provider={MapView.PROVIDER_GOOGLE}
                     style = {{flex: 1, marginBottom: this.state.marginBottom, marginTop: 0}, styles.map}
@@ -117,21 +121,32 @@ export default class Map extends Component{
                     initialRegion = {this.state.initialRegion}
                     onRegionChangeComplete = {this.onChangeValue}
                     ref = {ref =>this.map = ref}
-                    >
-                    </MapView>
+                    />
                     <View style={{top:'50%', left: '50%', marginLeft: -24, marginTop: -48, position:'absolute'}}>
                         <Image style={{height: 48, width: 48}} source={require('../img/pin.png')}/>
                     </View>
                 </View>
                 <View style={styles.MainContainer}>
-                    <TextInput
-                    style={{marginBottom: 20, fontSize: 20, color: 'white'}}
-                    onChangeText = {textvalue => setText(textvalue)}
-                    defaultValue={textvalue}/>
+                    <View
+						style={{
+							flexDirection: 'row',
+							backgroundColor: '#2e343d',
+							borderRadius: 40,
+							alignItems: 'center',
+							paddingVertical: 10,
+							paddingHorizontal: 20,
+							marginTop: 30,
+						}}
+					>
+						<Feather name="search" size={22} style={{ color: '#7b8085' }} />
+						<TextInput
+                            defaultValue={this.state.TextHolder}
+                            placeholderTextColor= "white"
+							style={{ paddingHorizontal: 20, fontSize: 15, color: 'white'}}
+						/>
+					</View>
                 </View>
             </View>
         )
     }
-    
-
 }
