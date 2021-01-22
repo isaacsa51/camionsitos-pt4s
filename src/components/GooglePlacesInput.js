@@ -1,11 +1,11 @@
 import React from 'react';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { View } from 'react-native';
+import { View, width, StyleSheet } from 'react-native';
 
 const GOOGLE_MAPS_APIKEY = 'AIzaSyB24UVy1ocICnO7Zsc9NuY04Mn5IBY8Jq0';
 const Autocomplete = ({ navigation }) => {
 	return (
-        <View style={{ flex: 1 }}>
+        <View style={styles.searchBox}>
             <GooglePlacesAutocomplete
                 placeholder='¿A donde quieres ir?'
                 currentLocation={true}
@@ -24,42 +24,49 @@ const Autocomplete = ({ navigation }) => {
                 }}
                 onFail={error => console.error(error)}
                 debounce={200}
-                styles={{
-                    textInputContainer: {
-                        backgroundColor: '#fff',
-                        borderTopWidth: 0,
-                        borderBottomWidth: 0,
-                    },
-                    textInput: {
-                        marginLeft: 0,
-                        marginRight: 0,
-                        height: 40,
-                        borderBottomWidth: 1,
-                        color: '#000',
-                        borderBottomColor: '#dedede'
-                    },
-                    predefinedPlacesDescription: {
-                        color: '#1faadb',
-                    },
-                    listView: {
-                        backgroundColor: '#fff',
-                        borderWidth: 0.5,
-                        borderColor: '#dedede',
-                        shadowColor: '#000',
-                        shadowOffset: {
-                            width: 0,
-                            height: 6,
-                        },
-                        shadowOpacity: 0.05,
-                        shadowRadius: 10,
-                        elevation: 4
-                    }
-                }}
+                styles={searchInputStyle}
                 
             />
         </View>	
     );
 };
+const styles = StyleSheet.create({
+    searchBox: {
+        top: 0,
+        flex: 1,
+        justifyContent: 'center',
+    }
+ });
 
+const searchInputStyle={
+    container: {
+        backgroundColor: '#fff',
+        width: width,
+        marginLeft: 20,
+        marginRight: 20,
+        marginTop: 20,
+        marginBottom: 0,
+        opacity: 0.9,
+        borderRadius: 8
+    },
+    description: {
+        fontWeight: 'bold',
+        color: "#007",
+        borderTopWidth: 0,
+        borderBottomWidth: 0,
+        opacity: 0.9,
+    },
+    predefinedPlacesDescription: {
+        color: '#355',
+    },
+    textInputContainer: {
+        height: 50,
+
+    },
+        textInput: {
+        height: 33,
+        fontSize: 16
+    }
+}
 
 export default Autocomplete 

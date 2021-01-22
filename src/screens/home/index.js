@@ -1,13 +1,23 @@
 import React from 'react';
 import { SafeAreaView } from 'react-navigation';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { View, Text, Image, StatusBar, TextInput } from 'react-native';
+import { View, Text, Image, StatusBar, TextInput, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons, Feather } from 'react-native-vector-icons';
+
+const styles = StyleSheet.create(
+	{
+		 container:
+		 {
+			 flex: 1,
+			 backgroundColor: '#282b33',
+			 justifyContent: 'center' // Set your own custom Color
+		 }
+	});
 
 const Home = ({ navigation }) => {
 	return (
 		<View style={{ flex: 1 }}>
-			<SafeAreaView forceInset={{ top: 'always' }} style={{ backgroundColor: '#282b33' }}>
+			<SafeAreaView style={styles.container}>
 				<View
 					style={{
 						flexDirection: 'row',
@@ -51,8 +61,8 @@ const Home = ({ navigation }) => {
 					>
 						<Feather name="search" size={22} style={{ color: '#7b8085' }} />
 						<TextInput
-							placeholder="A dónde quieres ir?"
-							style={{ paddingHorizontal: 20, fontSize: 15, color: '#7b8085' }}
+							placeholder="¿A dónde quieres ir?"
+							style={{ paddingHorizontal: 20, fontSize: 15, color: 'white' }}
 						/>
 					</View>
 
@@ -138,7 +148,7 @@ const Home = ({ navigation }) => {
 							}}
 						>
 							<Image
-								source={{ uri: '../../img/google_maps_multiple_destinations_desktop.jpg' }}
+								source={require('../../img/google_maps_multiple_destinations_desktop.jpg' )}
 								style={{ width: 180, height: 220, borderRadius: 10, height: 130 }}
 							/>
 							<View
@@ -178,7 +188,7 @@ const Home = ({ navigation }) => {
 							}}
 						>
 							<Image
-								source={{ uri: '../../img/google_maps_multiple_destinations_desktop.jpg' }}
+								source={require('../../img/google_maps_multiple_destinations_desktop.jpg' )}
 								style={{ width: 180, height: 220, borderRadius: 10, height: 130 }}
 							/>
 							<View
@@ -217,7 +227,7 @@ const Home = ({ navigation }) => {
 							}}
 						>
 							<Image
-								source={{ uri: '../../img/google_maps_multiple_destinations_desktop.jpg' }}
+								source={require('../../img/google_maps_multiple_destinations_desktop.jpg' )}
 								style={{ width: 180, height: 220, borderRadius: 10, height: 130 }}
 							/>
 							<View
