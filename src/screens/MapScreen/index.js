@@ -5,10 +5,16 @@ import Map from '../../components/Map';
 
 const MapScreen = ({ navigation }) => {
 	return (
-		<SafeAreaView forceInset={{ top: 'always' }}>
+		<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
 			<Map />
 		</SafeAreaView>
 	);
 };
+
+const styles = StyleSheet.create({
+	container:{
+		flex: 1,
+		backgroundColor: '#282b33',
+	}});
 
 export default MapScreen;
