@@ -13,7 +13,7 @@ const MapListScreen = ({ navigation }) => {
 			<ScrollView vertical showsHorizontalScrollIndicator={true} style={{marginTop: 30 }}>
 				<TouchableOpacity
 					onPress={() => {navigation.navigate('MapListViewer',{
-						dorados: [
+							dorados: [
 							{ longitude: -106.41979, latitude: 23.20282 },
 							{ longitude: -106.41995, latitude: 23.20364 },
 							{ longitude: -106.42011, latitude: 23.20432 },
@@ -343,9 +343,9 @@ const MapListScreen = ({ navigation }) => {
 								  { longitude: -106.43361, latitude: 23.26212 },
 								  { longitude: -106.434, latitude: 23.26181 },
 								  { longitude: -106.43437, latitude: 23.26151 }
-						  ]
-					});
-				}}
+						  	]
+						});
+					}}
 					style={{
 						alignItems: 'center',
 						justifyContent: 'center',
@@ -353,7 +353,9 @@ const MapListScreen = ({ navigation }) => {
 						backgroundColor: '#5facdb',
 					}}
 				>
-					<MaterialCommunityIcons name="train-variant" color="white" size={32} />
+				<Text>
+					Ruta Dorados
+				</Text>
 				</TouchableOpacity>
 
 						<View
