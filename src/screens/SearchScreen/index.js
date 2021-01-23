@@ -4,7 +4,7 @@ import { View, width, StyleSheet, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const GOOGLE_MAPS_APIKEY = 'AIzaSyB24UVy1ocICnO7Zsc9NuY04Mn5IBY8Jq0';
-const Autocomplete = ({ navigation }) => {
+const SearchScreen = ({ navigation }) => {
 	return (
         <View style={styles.searchBox}>
             <GooglePlacesAutocomplete
@@ -23,13 +23,31 @@ const Autocomplete = ({ navigation }) => {
                 }}
                 enablePoweredByContainer={false}
                 onPress={(data, details = null) => {
-                    console.log("GooglePlacesInput -> data", details)
+                    //console.log("GooglePlacesInput -> data", details),
+                    navigation.navigate('RouteSelectorScreen',{
+                        lugarText: data.description,
+                        latitud: details.geometry.location.lat,
+                        longitud: details.geometry.location.lng
+                    })
                 }}
                 onFail={error => console.error(error)}
                 debounce={200}
                 styles={searchInputStyle}
                 
             />
+           <TouchableOpacity
+				onPress={() => navigation.navigate('MapScreen')}
+				    style={{
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: 66,
+                        backgroundColor: '#5facdb',
+				    }}
+			    >
+                <Text>
+                    Seleccionar en el mapa
+                </Text>
+			</TouchableOpacity>
         </View>	
     );
 };
@@ -91,4 +109,4 @@ const searchInputStyle={
     }
 }
 
-export default Autocomplete 
+export default SearchScreen 

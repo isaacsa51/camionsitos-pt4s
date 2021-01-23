@@ -60,10 +60,13 @@ const Home = ({ navigation }) => {
 						}}
 					>
 						<Feather name="search" size={22} style={{ color: '#7b8085' }} />
-						<TextInput
-							placeholder="¿A dónde quieres ir?"
-							style={{ paddingHorizontal: 20, fontSize: 15, color: 'white' }}
-						/>
+						<TouchableOpacity 
+							onPress={() => {navigation.navigate('SearchScreen')}}
+						>
+							<Text style={{ paddingHorizontal: 20, fontSize: 15, color: 'white', }}>
+								¿A dónde quieres ir?
+							</Text>
+						</TouchableOpacity>
 					</View>
 
 					<ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginRight: -40, marginTop: 30 }}>

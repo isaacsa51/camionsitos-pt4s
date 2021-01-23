@@ -27,6 +27,7 @@ var textvalue;
 })
 
 export default class Map extends Component{
+
     constructor(props){
         super(props);
         this.state = {            
@@ -102,7 +103,6 @@ export default class Map extends Component{
         var result  = await this.getAddressFromCoordinates(coords)
         valor = result
         textvalue = valor
-        console.log(textvalue)
         this.setState({
             TextHolder: textvalue
         })
@@ -114,13 +114,13 @@ export default class Map extends Component{
             <View>
                 <View style= {{ backgroundColor: '#2e343d' }}>
                     <MapView
-                    provider={MapView.PROVIDER_GOOGLE}
-                    style = {{flex: 1, marginBottom: this.state.marginBottom, marginTop: 0}, styles.map}
-                    showsUserLocation = {true}
-                    showsMyLocationButton = {true}
-                    initialRegion = {this.state.initialRegion}
-                    onRegionChangeComplete = {this.onChangeValue}
-                    ref = {ref =>this.map = ref}
+                        provider={MapView.PROVIDER_GOOGLE}
+                        style = {{flex: 1, marginBottom: this.state.marginBottom, marginTop: 0}, styles.map}
+                        showsUserLocation = {true}
+                        showsMyLocationButton = {true}
+                        initialRegion = {this.state.initialRegion}
+                        onRegionChangeComplete = {this.onChangeValue}
+                        ref = {ref =>this.map = ref}
                     />
                     <View style={{top:'50%', left: '50%', marginLeft: -24, marginTop: -48, position:'absolute'}}>
                         <Image style={{height: 48, width: 48}} source={require('../img/pin.png')}/>
@@ -128,23 +128,23 @@ export default class Map extends Component{
                 </View>
                 <View style={styles.MainContainer}>
                     <View
-						style={{
-							flexDirection: 'row',
-							backgroundColor: '#2e343d',
-							borderRadius: 40,
-							alignItems: 'center',
-							paddingVertical: 10,
-							paddingHorizontal: 20,
-							marginTop: 30,
-						}}
-					>
-						<Feather name="search" size={22} style={{ color: '#7b8085' }} />
-						<TextInput
+                        style={{
+                            flexDirection: 'row',
+                            backgroundColor: '#2e343d',
+                            borderRadius: 40,
+                            alignItems: 'center',
+                            paddingVertical: 10,
+                            paddingHorizontal: 20,
+                            marginTop: 30,
+                        }}
+                    >
+                        <Feather name="search" size={22} style={{ color: '#7b8085' }} />
+                        <TextInput
                             defaultValue={this.state.TextHolder}
                             placeholderTextColor= "white"
-							style={{ paddingHorizontal: 20, fontSize: 15, color: 'white'}}
-						/>
-					</View>
+                            style={{ paddingHorizontal: 20, fontSize: 15, color: 'white'}}
+                        />
+                    </View>
                 </View>
             </View>
         )
